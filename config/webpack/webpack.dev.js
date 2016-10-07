@@ -35,7 +35,7 @@ module.exports = {
             }
         ]
     },
-    devtool: 'cheap-module-source-map',
+    devtool: 'source-map',
     devServer: {
         contentBase: BUILD,
         noInfo: true,
