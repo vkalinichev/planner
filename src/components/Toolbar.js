@@ -1,6 +1,8 @@
-import { showAddProject, filterTasks } from '../actions/actions';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
+
+import { showAddProject, filterTasks } from '../actions/actions';
+import styles from './Toolbar.styl';
 
 const mapDispatchToProps = ( dispatch )=> ({
     showAddProject: ()=> dispatch( showAddProject() ),
@@ -21,12 +23,10 @@ function Toolbar ({ projectId, showAddProject, onFilter }) {
         />
     </div>) : null;
 
-    return (<div className="toolbar">
-        <div>
-            <button onClick={ showAddProject }> + New Project </button>
-        </div>
+    return <div className={ styles.toolbar }>
+        <button onClick={ showAddProject }> + New Project </button>
         { projectTools }
-    </div>)
+    </div>
 }
 
 export default connect( null, mapDispatchToProps )( Toolbar )

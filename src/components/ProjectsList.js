@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
+import styles from './ProjectList.styl';
+
+import Project from './Project';
 import { addProject, showAddProject, hideAddProject } from '../actions/actions'
-import { Link } from 'react-router';
 
 const mapStateToProps = ({ projects, addingProject }) => ({
     projects,
@@ -16,7 +18,7 @@ const mapDispatchToProps = dispatch => ({ projects, addingProject }) => ({
 });
 
 @connect( mapStateToProps, mapDispatchToProps )
-class Sidebar extends React.Component {
+class ProjectsList extends React.Component {
 
     componentDidUpdate() {
         let el = ReactDOM.findDOMNode( this.refs.add );
@@ -28,16 +30,12 @@ class Sidebar extends React.Component {
     render() {
         let props = this.props;
 
-        return <div className="sidebar">
-            <h2>All projects</h2>
+        return <div className={ styles.list } >
 
-            <ul>
-                { props.projects.map( (project, i)=>
-                    <li key={ i } className={props.projectId == project.id ? "selected" : ""} >
-                        <Link to={`/${ project.id }`} > { project.name } </Link>
-                    </li>
-                ) }
-            </ul>
+            { props.projects.map( (project, i)=>
+                <Project project={ project } key={ i } active={ props.projectId == project.id } />
+            ) }
+
             { props.addingProject && <input ref="add" onKeyPress={ (e)=> this.createProject(e) }/> }
         </div>
     }
@@ -51,4 +49,4 @@ class Sidebar extends React.Component {
     }
 }
 
-export default Sidebar;
+export default ProjectsList;

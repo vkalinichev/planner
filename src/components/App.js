@@ -1,16 +1,20 @@
-import Sidebar from '../components/Sidebar'
+import Sidebar from './ProjectsList'
 import Toolbar from '../components/Toolbar'
 import { connect } from 'react-redux';
+import styles from './App.styl';
 
 const mapStateToProps = ( props, { params: { projectId } } ) => ({
     projectId
 });
 
 const App = ({ projectId, children }) => {
-    return( <div className="app">
+    return( <div className={ styles.container }>
+
         <Toolbar projectId={ projectId }/>
-        <Sidebar projectId={ projectId }/>
-        { children }
+        <div className={ styles.main }>
+            <Sidebar projectId={ projectId }/>
+            { children }
+        </div>
     </div> )
 };
 
