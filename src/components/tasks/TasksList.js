@@ -3,8 +3,12 @@ import { connect } from 'react-redux';
 import fuzzysearch from 'fuzzysearch';
 import styles from './TasksList.styl';
 
-const matches = ( filter, task ) =>
-  fuzzysearch( filter, task.title ) || fuzzysearch( filter, task.back );
+const matches = ( filter = "", task = "" ) => {
+    const needle = filter.toLowerCase(),
+        title = task.title.toLowerCase(),
+        text = task.text.toLowerCase();
+    return fuzzysearch(needle, title) || fuzzysearch(needle, text);
+};
 
 const mapStateToProps = ( { tasks, taskFilter }, { params: { projectId }} ) => {
     return {
@@ -13,8 +17,12 @@ const mapStateToProps = ( { tasks, taskFilter }, { params: { projectId }} ) => {
 };
 
 function VisibleTasks ({ tasks, children }) {
-    return (<div className={ styles.list }>
-        { tasks.map( task => <Task task={ task } key={ task.id }/> )}
+    const tasksList = tasks && tasks.length ?
+        tasks.map( task => <Task task={ task } key={ task.id }/> ):
+        'No tasks here';
+
+    return (<div className={ styles.list + (!tasks.length ? " " + styles.empty : "" ) }>
+        { tasksList }
         { children }
     </div>);
 }
