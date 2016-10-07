@@ -1,7 +1,7 @@
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 
-import { showAddProject, filterTasks } from '../actions/actions';
+import { showAddProject, filterTasks } from '../../actions/actions';
 import styles from './Toolbar.styl';
 
 const mapDispatchToProps = ( dispatch )=> ({

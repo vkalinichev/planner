@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { updateTask, deleteTask } from '../actions/actions'
+import { updateTask, deleteTask } from '../../actions/actions'
 import TaskModal from './TaskModal'
 
 const mapStateToProps = ({ tasks }, { params: { taskId } })=> ({

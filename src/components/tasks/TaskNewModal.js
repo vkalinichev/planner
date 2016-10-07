@@ -1,6 +1,6 @@
 import TaskModal from './TaskModal';
 import { connect } from 'react-redux';
-import { addTask } from '../actions/actions';
+import { addTask } from '../../actions/actions';
 
 const mapStateToProps = ( props, { params: { projectId } } )=>({
     task: { projectId }

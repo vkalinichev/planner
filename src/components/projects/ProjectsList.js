@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import styles from './ProjectList.styl';
 
 import Project from './Project';
-import { addProject, showAddProject, hideAddProject } from '../actions/actions'
+import { addProject, showAddProject, hideAddProject } from '../../actions/actions'
 
 const mapStateToProps = ({ projects, addingProject }) => ({
     projects,

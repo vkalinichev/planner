@@ -9,10 +9,10 @@ import { fetchData} from './actions/actions'
 import * as reducers from './reducers/reducers'
 import './style.css';
 
-import App from './components/App';
-import TasksList from './components/TasksList';
-import TaskNewModal from './components/TaskNewModal';
-import TaskEditModal from './components/TaskEditModal';
+import App from './components/app/App';
+import TasksList from './components/tasks/TasksList';
+import TaskNewModal from './components/tasks/TaskNewModal';
+import TaskEditModal from './components/tasks/TaskEditModal';
 
 reducers.routing = routerReducer;
 

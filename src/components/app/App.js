@@ -1,5 +1,5 @@
-import Sidebar from './ProjectsList'
-import Toolbar from '../components/Toolbar'
+import Sidebar from '../projects/ProjectsList'
+import Toolbar from '../toolbar/Toolbar'
 import { connect } from 'react-redux';
 import styles from './App.styl';
 
