@@ -16,14 +16,20 @@ import TaskEditModal from './components/tasks/TaskEditModal';
 
 reducers.routing = routerReducer;
 
-const store = createStore( combineReducers( reducers ), applyMiddleware( thunkMiddleware ) );
-const history = syncHistoryWithStore( browserHistory, store );
+const store = createStore(
+    combineReducers( reducers ),
+    applyMiddleware( thunkMiddleware )
+);
+const history = syncHistoryWithStore(
+    browserHistory,
+    store
+);
 
 function run () {
     ReactDOM.render(
         <Provider store={ store } >
-            <Router history={history}>
-                <Route path='/' component={App} >
+            <Router history={ history }>
+                <Route path='/' component={ App } >
                     <Route path='/:projectId' component={ TasksList }>
                         <Route path='/:projectId/new' component={ TaskNewModal }/>
                         <Route path='/:projectId/:taskId' component={ TaskEditModal }/>

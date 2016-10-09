@@ -1,0 +1,38 @@
+.button
+    $height = 4px
+    $color = lighten( forestgreen, 10% )
+    $shadow = hsla( black, 7% )
+
+    display inline-block
+
+    padding 4px 12px
+    font inherit
+    text-decoration none
+    line-height 1.4
+    white-space nowrap
+
+    background $color
+    border-radius 3px
+    border none
+    box-shadow:
+        0 $height 0 0 darken( $color, 15% ),
+        0 $height*2 0 0 $shadow
+    color white
+    cursor pointer
+    transform translate3d( 0, -($height), 0 )
+    transition .07s ease-in-out
+    transition-property transform, box-shadow
+
+    &:hover
+        background-color lighten( $color, 5% )
+        box-shadow:
+            0 $height 0 0 darken( $color, 8% ),
+            0 $height*2 0 0 $shadow
+
+    &:active
+        background-color darken( $color, 10% )
+        box-shadow:
+            0 0 0 0 darken( $color, 20% ),
+            0 0 0 0 $shadow
+        transform translate3d( 0, 0, 0 )
+

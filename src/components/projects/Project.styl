@@ -1,6 +1,15 @@
+.project
+    position relative
+    border-bottom 1px solid hsla( 0, 0%, 0%, .05)
+    -webkit-user-select none
+
+    &:last-child
+        border-bottom none
+
 .link
+    -webkit-user-drag none
     display block
-    padding 6px 20px
+    padding 5px 20px 7px
     color #666
     font-size 13px
     text-decoration none
@@ -9,3 +18,40 @@
     background hsla( 0, 0%, 0%, .05)
     color #1380ff
     pointer-events none
+
+.delete-btn
+    position absolute
+    top 0
+    bottom 0
+    right 20px
+    width 16px
+    height @width
+
+    margin auto
+    padding 0 0 3px
+
+    background hsla( black, .2 )
+    border none
+    border-radius 3px
+    color black
+    cursor pointer
+    font inherit
+    font-size 20px
+    line-height 0
+
+    opacity 0
+    visibility hidden
+
+    :hover > &
+        visibility visible
+        transition visibility 0s .5s
+        opacity .3
+
+    &:hover
+        opacity .8
+
+    &:active
+        opacity 1
+
+    &:focus
+        outline none

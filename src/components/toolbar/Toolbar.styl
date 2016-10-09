@@ -6,9 +6,48 @@
     padding 8px 20px
 
 .logo
-    background #f7df1e url("../../images/favicon.png") no-repeat 4px center / 16px
-    padding 1px 8px 0 24px
+    $bg = #f7df1e
+    position relative
+    background $bg url("../../images/favicon.png") no-repeat 4px center / 16px
+    padding 0 8px 1px 24px
     font-size 13px
+    color black
     line-height 22px
     border-radius 3px
     box-shadow 0 0 1px hsla( black, .15 ) inset
+    text-decoration none
+
+    &:after
+        content ''
+        position absolute
+        top 0
+        left 0
+        right 0
+        bottom 0
+        background-color transparent
+        border-radius inherit
+
+        transition background-color .4s cubic-bezier( .4, 6, .6, 1 )
+
+    &:hover:after
+        background-color hsla( white, .1 )
+
+.search
+    cursor pointer
+    background #fafafa
+    border-radius 3px
+    border none
+    padding 2px 8px 3px
+    font-family inherit
+    line-height 1.4
+
+    &::-webkit-input-placeholder
+        color #ccc
+
+    &:hover
+        background #fcfcfc
+
+    &:focus
+        background white
+        cursor text
+        outline none

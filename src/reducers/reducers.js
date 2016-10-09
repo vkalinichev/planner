@@ -1,4 +1,12 @@
-export function showBack ( state, action ) {
+export {
+    showBack,
+    taskFilter,
+    tasks,
+    projects,
+    addingProject
+};
+
+function showBack ( state, action ) {
     switch ( action.type ) {
         case 'SHOW_BACK':
             return action.data || false;
@@ -7,7 +15,7 @@ export function showBack ( state, action ) {
     }
 }
 
-export function taskFilter ( state, action ) {
+function taskFilter ( state, action ) {
     switch ( action.type ) {
         case 'FILTER_TASKS':
             return action.data;
@@ -17,7 +25,7 @@ export function taskFilter ( state, action ) {
     }
 }
 
-export function tasks ( state, action ) {
+function tasks ( state, action ) {
 
     switch ( action.type ) {
         case 'RECEIVE_DATA':
@@ -46,22 +54,28 @@ export function tasks ( state, action ) {
     }
 }
 
-export function projects ( state, action) {
+function projects ( state, action ) {
 
     switch ( action.type ) {
         case 'RECEIVE_DATA':
             return action.data.projects || state;
 
         case 'ADD_PROJECT':
-            let newProject = { name: action.data, id: +new Date };
+            let newProject = {
+                name: action.data,
+                id: state.length ? state[state.length - 1 ].id + 1 : 1
+            };
             return state.concat([newProject]);
+
+        case 'DELETE_PROJECT':
+            return state.filter( project => project.id != action.data );
 
         default:
             return state || [];
     }
 }
 
-export function addingProject ( state, action ) {
+function addingProject ( state, action ) {
     switch ( action.type ) {
         case "SHOW_ADD_PROJECT": return true;
         case "HIDE_ADD_PROJECT": return false;
