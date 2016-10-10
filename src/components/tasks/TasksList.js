@@ -1,7 +1,9 @@
-import Task from './Task';
+import CSSModules from 'react-css-modules';
 import { connect } from 'react-redux';
 import fuzzysearch from 'fuzzysearch';
-import styles from './TasksList.styl';
+
+import Task from './Task';
+import * as styles from './TasksList.styl';
 
 const matches = ( filter = "", task = "" ) => {
     const needle = filter.toLowerCase(),
@@ -10,21 +12,19 @@ const matches = ( filter = "", task = "" ) => {
     return fuzzysearch(needle, title) || fuzzysearch(needle, text);
 };
 
-const mapStateToProps = ( { tasks, taskFilter }, { params: { projectId }} ) => {
-    return {
-        tasks: tasks.filter(c => c.projectId == projectId && matches( taskFilter, c ) )
-    }
-};
+const mapStateToProps = ( { tasks, taskFilter }, { params: { projectId }} ) => ({
+    tasks: tasks.filter(c => c.projectId == projectId && matches( taskFilter, c ) )
+});
 
 function VisibleTasks ({ tasks, children }) {
     const tasksList = tasks && tasks.length ?
         tasks.map( task => <Task task={ task } key={ task.id }/> ):
         'No tasks here';
 
-    return (<div className={ styles.list + (!tasks.length ? " " + styles.empty : "" ) }>
+    return (<div styleName={ 'list ' + tasks.length ? '' : 'empty' } >
         { tasksList }
         { children }
     </div>);
 }
 
-export default connect( mapStateToProps )( VisibleTasks )
+export default connect( mapStateToProps )( CSSModules( VisibleTasks, styles, { allowMultiple: true } ) )

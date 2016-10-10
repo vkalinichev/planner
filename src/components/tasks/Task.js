@@ -1,12 +1,10 @@
 import { Link } from 'react-router';
 
-function Task ({ task }) {
-    return (<div className='task'>
-        <div>
-            <p> { task.title } </p>
-            <Link className='btn' to={ `/${ task.projectId }/${ task.id }` }> Edit </Link>
-        </div>
-    </div>);
-}
+const Task = ({ task })=> (
+    <div className='task'>
+        <p> { task.title } </p>
+        <Link to={ `/${ task.projectId }/${ task.id }` }> Edit </Link>
+    </div>
+);
 
 export default Task;

@@ -4,12 +4,10 @@ import { Link } from 'react-router';
 import * as styles from './Button.styl';
 
 const Button = ({ children, style='', onClick, to }) => {
-    const styleName = 'button ' + style;
-    
     if (to) {
-        return <Link styleName={ styleName } to={ to }>{ children }</Link>
+        return <Link styleName={ `button ${ style }` } to={ to }>{ children }</Link>
     } else {
-        return <button styleName={ styleName } onClick={ onClick } >{ children }</button>
+        return <button styleName={ `button ${ style }` } onClick={ onClick } >{ children }</button>
     }
 };
 
