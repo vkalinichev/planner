@@ -1,15 +1,16 @@
+import CSSModules from 'react-css-modules';
 import { Link } from 'react-router';
 
-import styles from './Button.styl';
+import * as styles from './Button.styl';
 
-const Button = ({ children, style, onClick, to }) => {
-    const className = styles.button + `${ style ? " " + styles[ style ] : "" }`;
-
+const Button = ({ children, style='', onClick, to }) => {
+    const styleName = 'button ' + style;
+    
     if (to) {
-        return <Link className={ className } to={ to }>{ children }</Link>
+        return <Link styleName={ styleName } to={ to }>{ children }</Link>
     } else {
-        return <button className={ className } onClick={ onClick } >{ children }</button>
+        return <button styleName={ styleName } onClick={ onClick } >{ children }</button>
     }
 };
 
-export default Button;
+export default CSSModules( Button, styles, { allowMultiple: true } );

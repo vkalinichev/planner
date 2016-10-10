@@ -1,15 +1,19 @@
 import { Link } from 'react-router';
-import styles from './Project.styl';
+import * as styles from './Project.styl';
+import CSSModules from 'react-css-modules';
 
-function Project ({ project, active, deleteProject }) {
-    const className = `${ styles.link } ${ active ? styles.active : '' }`;
+const Project = ({ project, active, onClickDelete }) => (
 
-    return <div className={ styles.project }>
-        <Link to={ '/' + project.id } className={ className }>
+    <div styleName='project' >
+
+        <Link to={ '/' + project.id } styleName={ `link ${ active ? 'active' : '' }` } >
             { project.name }
         </Link>
-        <button className={ styles['delete-btn'] } onClick={ deleteProject }>⨯</button>
-    </div>
-}
 
-export default Project
+        <button styleName='delete-btn' onClick={ onClickDelete }>⨯</button>
+
+    </div>
+
+);
+
+export default CSSModules( Project, styles, { allowMultiple: true } )

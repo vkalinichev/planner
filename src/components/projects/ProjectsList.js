@@ -38,7 +38,7 @@ class ProjectsList extends React.Component {
                     project={ project }
                     key={ i }
                     active={ props.projectId == project.id }
-                    deleteProject={ ()=> this.props.deleteProject( project.id ) }
+                    onClickDelete={ ()=> this.props.deleteProject( project.id ) }
                 />
             ) }
 

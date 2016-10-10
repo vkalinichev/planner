@@ -1,21 +1,22 @@
+import CSSModules from 'react-css-modules';
+import { connect } from 'react-redux';
+
 import Sidebar from '../projects/ProjectsList'
 import Toolbar from '../toolbar/Toolbar'
-import { connect } from 'react-redux';
-import styles from './App.styl';
+import * as styles from './App.styl';
 
 const mapStateToProps = ( props, { params: { projectId } } ) => ({
     projectId
 });
 
-const App = ({ projectId, children }) => {
-    return( <div className={ styles.container }>
-
+const App = ({ projectId, children }) => (
+    <div styleName='container' >
         <Toolbar projectId={ projectId }/>
-        <div className={ styles.main }>
+        <div styleName='main' >
             <Sidebar projectId={ projectId }/>
             { children }
         </div>
-    </div> )
-};
+    </div>
+);
 
-export default connect(mapStateToProps)(App);
+export default connect( mapStateToProps )( CSSModules( App, styles ) );
