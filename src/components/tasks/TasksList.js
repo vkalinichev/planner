@@ -2,7 +2,7 @@ import CSSModules from 'react-css-modules';
 import { connect } from 'react-redux';
 import fuzzysearch from 'fuzzysearch';
 
-import Task from './Task';
+import TaskItem from './TaskItem';
 import * as styles from './TasksList.styl';
 
 const matches = ( filter = "", task = "" ) => {
@@ -16,15 +16,15 @@ const mapStateToProps = ( { tasks, taskFilter }, { params: { projectId }} ) => (
     tasks: tasks.filter(c => c.projectId == projectId && matches( taskFilter, c ) )
 });
 
-function VisibleTasks ({ tasks, children }) {
+function TasksList ({ tasks, children }) {
     const tasksList = tasks && tasks.length ?
-        tasks.map( task => <Task task={ task } key={ task.id }/> ):
+        tasks.map( task => <TaskItem task={ task } key={ task.id }/> ):
         'No tasks here';
 
-    return (<div styleName={ 'list ' + tasks.length ? '' : 'empty' } >
+    return (<main styleName={ 'list ' + tasks.length ? '' : 'empty' } >
         { tasksList }
         { children }
-    </div>);
+    </main>);
 }
 
-export default connect( mapStateToProps )( CSSModules( VisibleTasks, styles, { allowMultiple: true } ) )
+export default connect( mapStateToProps )( CSSModules( TasksList, styles, { allowMultiple: true } ) )

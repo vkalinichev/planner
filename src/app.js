@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Router, Route, browserHistory } from 'react-router';
@@ -11,8 +11,7 @@ import './style.css';
 
 import App from './components/app/App';
 import TasksList from './components/tasks/TasksList';
-import TaskNewModal from './components/tasks/TaskNewModal';
-import TaskEditModal from './components/tasks/TaskEditModal';
+import Task from './components/tasks/Task';
 
 reducers.routing = routerReducer;
 
@@ -20,19 +19,21 @@ const store = createStore(
     combineReducers( reducers ),
     applyMiddleware( thunkMiddleware )
 );
+
 const history = syncHistoryWithStore(
     browserHistory,
     store
 );
 
+window.store = store;
+
 function run () {
-    ReactDOM.render(
+    render(
         <Provider store={ store } >
             <Router history={ history }>
                 <Route path='/' component={ App } >
                     <Route path='/:projectId' component={ TasksList }>
-                        <Route path='/:projectId/new' component={ TaskNewModal }/>
-                        <Route path='/:projectId/:taskId' component={ TaskEditModal }/>
+                        <Route path='/:projectId/:taskId' component={ Task }/>
                     </Route>
                 </Route>
             </Router>
