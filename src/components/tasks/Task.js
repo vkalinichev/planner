@@ -1,58 +1,80 @@
 import { Component } from 'react';
-import ReactDOM from 'react-dom';
+import cssModules from 'react-css-modules';
 import { Link, browserHistory } from 'react-router';
-
 import { connect } from 'react-redux';
-import { updateTask, deleteTask } from '../../actions/actions'
+
+import Button from '../button/Button';
+import { addTask, updateTask, deleteTask } from '../../actions/actions'
+import * as styles from './Task.styl';
 
 const mapStateToProps = ({ tasks }, { params: { taskId } })=> ({
+    isNew: taskId === 'new',
     tasksCount: tasks.length,
     task: tasks.filter( task => task.id === parseInt( taskId, 10 ))[0]
 });
 
 const mapDispatchToProps = ( dispatch )=> ({
+    onAdd: task => dispatch( addTask( task )),
     onSave: task => dispatch( updateTask( task )),
     onDelete: taskId => dispatch( deleteTask( taskId ))
 });
 
 @connect( mapStateToProps, mapDispatchToProps )
+@cssModules( styles, { allowMultiple: true } )
+
 class TaskModal extends Component {
 
     componentDidUpdate() {
-        ReactDOM.findDOMNode(this.refs.title).focus();
+        this.refs.title.focus();
     }
 
     render() {
-        let { tasksCount, task, onDelete } = this.props;
+        let { isNew, tasksCount, task } = this.props;
 
         if ( tasksCount === 0 ) {
             return <div>no tasks</div>
         }
 
-        return (<div className='modal'>
-            <h1> { onDelete ? 'Edit' : 'New' } Task </h1>
-            <label> Title: </label>
-            <input ref='title' value={ task.title } onChange={ ()=> console.log(1)}/>
-            <label> Text: </label>
-            <textarea ref='text' value={ task.text } onChange={ ()=> console.log(2)}/>
-            <p>
-                <button onClick={ this.onSave }> Save </button>
-                <Link to={`/${ task.projectId }`}> Cancel </Link>
-                { onDelete ?
-                    <button onClick={ this.onDelete } className='delete'> Delete </button> :
-                    null
+        if ( task )
+
+        return (<div styleName='task'>
+            <div styleName='title'> { isNew ? 'New' : 'Edit' } Task </div>
+            <div styleName='line'>
+                <label> Title: </label>
+                <input ref='title' defaultValue={ task.title } onChange={ ()=> console.log(1)}/>
+            </div>
+            <div styleName='line'>
+                <label> Text: </label>
+                <textarea ref='text' defaultValue={ task.text } onChange={ ()=> console.log(2)}/>
+            </div>
+            <div styleName='buttons'>
+                { isNew ?
+                    <Button onClick={ this.onAdd }> Add </Button> :
+                    <Button onClick={ this.onSave }> Save </Button>
                 }
-            </p>
+                <Button to={`/${ task.projectId }`}> Cancel </Button>
+                { isNew ?
+                    null:
+                    <Button onClick={ this.onDelete } className='delete'> Delete </Button>
+                }
+            </div>
         </div>)
     }
 
-    onSave = ()=> {
-        let title = ReactDOM.findDOMNode( this.refs.title ),
-            text = ReactDOM.findDOMNode( this.refs.text );
+    onAdd = ()=> {
+        this.props.onAdd( {
+            id: +new Date,
+            title: this.refs.title.value,
+            text: this.refs.text.value
+        });
 
+        browserHistory.push(`/${ this.props.task.projectId}`);
+    };
+
+    onSave = ()=> {
         this.props.onSave( Object.assign( {}, this.props.task, {
-            title: title.value,
-            text: text.value
+            title: this.refs.title.value,
+            text: this.refs.text.value
         }));
 
         browserHistory.push(`/${ this.props.task.projectId}`);

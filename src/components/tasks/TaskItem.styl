@@ -1,2 +1,20 @@
 .task-item
-    color rebeccapurple
+    position relative
+    border-bottom 1px solid hsla( 0, 0%, 0%, .05)
+    -webkit-user-select none
+
+    &:last-child
+        border-bottom none
+
+.link
+    -webkit-user-drag none
+    display block
+    padding 5px 20px 7px
+    color #666
+    font-size 13px
+    text-decoration none
+
+.active
+    background hsla( 0, 0%, 0%, .05)
+    color #1380ff
+    pointer-events none

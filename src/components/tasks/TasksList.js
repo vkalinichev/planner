@@ -12,19 +12,26 @@ const matches = ( filter = "", task = "" ) => {
     return fuzzysearch(needle, title) || fuzzysearch(needle, text);
 };
 
-const mapStateToProps = ( { tasks, taskFilter }, { params: { projectId }} ) => ({
+const mapStateToProps = ( { tasks, taskFilter }, { params: { projectId, taskId }} ) => ({
+    activeTaskId: taskId,
     tasks: tasks.filter(c => c.projectId == projectId && matches( taskFilter, c ) )
 });
 
-function TasksList ({ tasks, children }) {
-    const tasksList = tasks && tasks.length ?
-        tasks.map( task => <TaskItem task={ task } key={ task.id }/> ):
-        'No tasks here';
-
-    return (<main styleName={ 'list ' + tasks.length ? '' : 'empty' } >
-        { tasksList }
+function TasksList ({ tasks, children, activeTaskId }) {
+    return <div styleName='container' >
+        <div styleName='list'>
+            { tasks && tasks.length ?
+                tasks.map( task =>
+                    <TaskItem
+                        task={ task }
+                        key={ task.id }
+                        isActive={ task.id == activeTaskId }
+                    />) :
+                'No tasks here'
+            }
+        </div>
         { children }
-    </main>);
+    </div>
 }
 
 export default connect( mapStateToProps )( CSSModules( TasksList, styles, { allowMultiple: true } ) )
