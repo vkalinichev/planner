@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { Router, Route, browserHistory } from 'react-router';
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 import thunkMiddleware from 'redux-thunk';
@@ -16,9 +16,14 @@ import Task from './components/tasks/Task';
 
 reducers.routing = routerReducer;
 
+const enhancer = compose(
+    applyMiddleware( thunkMiddleware, createLogger() ),
+    window['devToolsExtension'] ? window['devToolsExtension']() : f => f
+);
+
 const store = createStore(
     combineReducers( reducers ),
-    applyMiddleware( thunkMiddleware, createLogger() )
+    enhancer
 );
 
 const history = syncHistoryWithStore(
