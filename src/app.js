@@ -13,11 +13,13 @@ import App from './components/app/App';
 import TasksList from './components/tasks/TasksList';
 import Task from './components/tasks/Task';
 
+import logger from './middlewares/logger';
+
 reducers.routing = routerReducer;
 
 const store = createStore(
     combineReducers( reducers ),
-    applyMiddleware( thunkMiddleware )
+    applyMiddleware( thunkMiddleware, logger )
 );
 
 const history = syncHistoryWithStore(
