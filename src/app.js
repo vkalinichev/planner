@@ -66,7 +66,6 @@ function save () {
 
 function init() {
     run();
-    store.subscribe( run );
     store.subscribe( save );
     store.dispatch( fetchData() )
 }
