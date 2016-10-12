@@ -5,6 +5,7 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Router, Route, browserHistory } from 'react-router';
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 import thunkMiddleware from 'redux-thunk';
+import createLogger from 'redux-logger'
 import { fetchData} from './actions/actions'
 import * as reducers from './reducers/reducers'
 import './style.css';
@@ -13,13 +14,11 @@ import App from './components/app/App';
 import TasksList from './components/tasks/TasksList';
 import Task from './components/tasks/Task';
 
-import logger from './middlewares/logger';
-
 reducers.routing = routerReducer;
 
 const store = createStore(
     combineReducers( reducers ),
-    applyMiddleware( thunkMiddleware, logger )
+    applyMiddleware( thunkMiddleware, createLogger() )
 );
 
 const history = syncHistoryWithStore(
