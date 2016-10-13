@@ -19,7 +19,6 @@ class Project extends Component {
 
         if ( event.which === 13 && value ) {
             this.props.onAdd(value);
-            this.props.goBack()
         }
     };
 

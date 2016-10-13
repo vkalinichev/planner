@@ -1,4 +1,12 @@
-export const addProject = ( name )=> ({ type: 'ADD_PROJECT', data: name });
+import { push } from 'react-router-redux';
+import { maxId } from '../helpers';
+
+export const addProject = ( name )=> ( dispatch, getState )=> {
+    const id = maxId( getState().projects );
+    dispatch( { type: 'ADD_PROJECT', data: { id, name } } );
+    dispatch( push( `/${ id }` ) )
+};
+
 export const deleteProject = ( projectId )=> ({ type: 'DELETE_PROJECT', data: projectId });
 export const showAddProject = ()=> ({ type: 'SHOW_ADD_PROJECT' });
 export const hideAddProject = ()=> ({ type: 'HIDE_ADD_PROJECT' });

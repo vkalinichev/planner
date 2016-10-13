@@ -17,7 +17,11 @@ import Task from './components/tasks/Task';
 reducers.routing = routerReducer;
 
 const enhancer = compose(
-    applyMiddleware( thunkMiddleware, createLogger(), routerMiddleware( browserHistory ) ),
+    applyMiddleware(
+        thunkMiddleware,
+        createLogger({ collapsed: true }),
+        routerMiddleware( browserHistory )
+    ),
     window['devToolsExtension'] ? window['devToolsExtension']() : f => f
 );
 
