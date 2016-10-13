@@ -1,19 +1,8 @@
 export {
-    showBack,
     taskFilter,
     tasks,
-    projects,
-    addingProject
+    projects
 };
-
-function showBack ( state, action ) {
-    switch ( action.type ) {
-        case 'SHOW_BACK':
-            return action.data || false;
-        default:
-            return state || false
-    }
-}
 
 function taskFilter ( state, action ) {
     switch ( action.type ) {
@@ -72,13 +61,5 @@ function projects ( state, action ) {
 
         default:
             return state || [];
-    }
-}
-
-function addingProject ( state, action ) {
-    switch ( action.type ) {
-        case "SHOW_ADD_PROJECT": return true;
-        case "HIDE_ADD_PROJECT": return false;
-        default: return !!state;
     }
 }

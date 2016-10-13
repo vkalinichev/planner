@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { Router, Route, browserHistory } from 'react-router';
-import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
+import { syncHistoryWithStore, routerReducer, routerMiddleware } from 'react-router-redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger'
 import { fetchData} from './actions/actions'
@@ -17,7 +17,7 @@ import Task from './components/tasks/Task';
 reducers.routing = routerReducer;
 
 const enhancer = compose(
-    applyMiddleware( thunkMiddleware, createLogger() ),
+    applyMiddleware( thunkMiddleware, createLogger(), routerMiddleware( browserHistory ) ),
     window['devToolsExtension'] ? window['devToolsExtension']() : f => f
 );
 

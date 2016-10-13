@@ -1,5 +1,7 @@
 .project
     position relative
+    width 100%
+    height 30px
     border-bottom 1px solid hsla( 0, 0%, 0%, .05)
     -webkit-user-select none
 
@@ -9,10 +11,29 @@
 .link
     -webkit-user-drag none
     display block
+    height inherit
     padding 5px 20px 7px
+
     color #666
     font-size 13px
     text-decoration none
+
+    &_new
+        color #aaa
+
+.new-input-wrapper
+    position absolute
+    left 0
+    right 0
+    padding 0 20px
+
+.new-input
+    width 100%
+    height inherit
+    font inherit
+    padding 2px 8px
+    border-radius 3px
+    border 1px solid #ccc
 
 .active
     background hsla( 0, 0%, 0%, .05)

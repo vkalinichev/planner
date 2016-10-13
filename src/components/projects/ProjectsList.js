@@ -1,57 +1,57 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import cssModules from 'react-css-modules';
 import { connect } from 'react-redux';
-import styles from './ProjectsList.styl';
+import { push as navigate } from 'react-router-redux';
+
+import * as styles from './ProjectsList.styl';
 
 import Project from './Project';
-import { addProject, deleteProject, showAddProject, hideAddProject } from '../../actions/actions'
+import ProjectNew from './ProjectNew';
+import { addProject, deleteProject } from '../../actions/actions'
 
-const mapStateToProps = ({ projects, addingProject }) => ({
-    projects,
-    addingProject
+const mapStateToProps = ({ projects }) => ({
+    projects
 });
 
-const mapDispatchToProps = dispatch => ({ projects, addingProject }) => ({
+const mapDispatchToProps = dispatch => ({ projects }) => ({
     addProject: name => dispatch( addProject( name ) ),
     deleteProject: id => dispatch( deleteProject( id ) ),
-    showAddProject: ()=> dispatch( showAddProject() ),
-    hideAddProject: ()=> dispatch( hideAddProject() )
+    navigate: url => dispatch( navigate( url ) )
 });
 
 @connect( mapStateToProps, mapDispatchToProps )
+@cssModules( styles, { allowMultiple: true } )
 class ProjectsList extends React.Component {
 
     componentDidUpdate() {
-        let el = ReactDOM.findDOMNode( this.refs.add );
+        let el = this.refs.add;
         if ( el ) {
             el.focus()
         }
     }
 
     render() {
-        let props = this.props;
+        let { projects, projectId, deleteProject } = this.props;
 
         return <div className={ styles.list } >
-
-            { props.projects.map( (project, i)=>
+            <ProjectNew
+                active={ projectId === 'new' }
+                onAdd={ this.addProject}
+            />
+            { projects.map( (project, i)=>
                 <Project
                     project={ project }
                     key={ i }
-                    active={ props.projectId == project.id }
-                    onClickDelete={ ()=> this.props.deleteProject( project.id ) }
+                    active={ projectId == project.id }
+                    onClickDelete={ ()=> deleteProject( project.id ) }
                 />
             ) }
-
-            { props.addingProject && <input ref="add" onKeyPress={ this.createProject }/> }
         </div>
     }
 
-    createProject = ( event )=> {
-        if ( event.which !== 13 ) { return }
-
-        var name = ReactDOM.findDOMNode( this.refs.add ).value;
+    addProject = ( name )=> {
         this.props.addProject( name );
-        this.props.hideAddProject();
     }
 }
 

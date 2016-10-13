@@ -41,11 +41,11 @@ class TaskModal extends Component {
             <div styleName='title'> { isNew ? 'New' : 'Edit' } Task </div>
             <div styleName='line'>
                 <label> Title: </label>
-                <input ref='title' defaultValue={ task.title } onChange={ ()=> console.log(1)}/>
+                <input ref='title' value={ task.title } onChange={ ()=> console.log(1)}/>
             </div>
             <div styleName='line'>
                 <label> Text: </label>
-                <textarea ref='text' defaultValue={ task.text } onChange={ ()=> console.log(2)}/>
+                <textarea ref='text' value={ task.text } onChange={ ()=> console.log(2)}/>
             </div>
             <div styleName='buttons'>
                 { isNew ?
