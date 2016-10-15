@@ -15,6 +15,7 @@ module.exports = {
 
     output: {
         path: BUILD,
+        publicPath: '/',
         filename: 'app.js'
     },
 
