@@ -1,0 +1,19 @@
+{
+    "name": "nodejs app",
+    "description": "A barebones Node.js app using Express 4.",
+    "keywords": [],
+    "repository": "",
+    "scripts": {
+        "dokku": {
+            "predeploy": "touch /app/bla1",
+            "postdeploy": "touch /app/bla2"
+        }
+    },
+    "env": {},
+    "addons": [],
+    "buildpacks": [
+        {
+            "url": "https://github.com/heroku/heroku-buildpack-nodejs"
+        }
+    ]
+}
