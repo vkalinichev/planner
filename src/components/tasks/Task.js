@@ -22,20 +22,23 @@ const mapDispatchToProps = ( dispatch )=> ({
 @connect( mapStateToProps, mapDispatchToProps )
 @cssModules( styles, { allowMultiple: true } )
 
-class TaskModal extends Component {
+class Task extends Component {
 
     componentDidUpdate() {
-        this.refs.title.focus();
+        const title = this.refs.title;
+
+        if ( title ) this.refs.title.focus();
     }
 
     render() {
+
         let { isNew, tasksCount, task } = this.props;
 
-        if ( tasksCount === 0 ) {
-            return <div>no tasks</div>
-        }
+        // if ( tasksCount === 0 ) {
+        //     return <div>no tasks</div>
+        // }
 
-        if ( task )
+        if ( isNew ) task = { title: '', text: '' };
 
         return (<div styleName='task'>
             <div styleName='title'> { isNew ? 'New' : 'Edit' } Task </div>
@@ -86,4 +89,4 @@ class TaskModal extends Component {
     }
 }
 
-export default TaskModal;
+export default Task;
