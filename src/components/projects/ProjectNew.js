@@ -28,6 +28,16 @@ class Project extends Component {
         }
     };
 
+    handleBlur = ( event )=> {
+        if ( event.which === 27 ) {
+            this.close()
+        }
+    };
+
+    close() {
+        this.props.goBack()
+    };
+
     render() {
         let input = <div styleName='new-input-wrapper' >
             <input
@@ -38,13 +48,14 @@ class Project extends Component {
                 defaultValue=''
                 onKeyPress={ this.handleKeyPress }
                 onKeyDown={ this.handleKeyDown }
+                onBlur={ this.handleBlur }
             />
         </div>;
 
         return <div styleName='project'>
             { this.props.active ?
                 input:
-                <Link to='/new' styleName='link link_new'>+ new</Link>
+                <Link to='/new' styleName='link link_new'>New</Link>
             }
         </div>
     }

@@ -32,9 +32,9 @@ class ProjectsList extends React.Component {
     }
 
     render() {
-        let { projects, projectId, deleteProject } = this.props;
+        const { projects, projectId, deleteProject } = this.props;
 
-        return <div className={ styles.list } >
+        return <div styleName='list' >
             <ProjectNew
                 active={ projectId === 'new' }
                 onAdd={ this.addProject}
@@ -42,8 +42,8 @@ class ProjectsList extends React.Component {
             { projects.map( (project, i)=>
                 <Project
                     project={ project }
-                    key={ i }
-                    active={ projectId == project.id }
+                    key={ project.id }
+                    active={ project.id == projectId }
                     onClickDelete={ ()=> deleteProject( project.id ) }
                 />
             ) }
