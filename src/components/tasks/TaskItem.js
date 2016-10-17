@@ -3,26 +3,26 @@ import * as styles from './TaskItem.styl';
 import CSSModules from 'react-css-modules';
 
 const TaskItem = ({ task, active })=> {
-    let styleName = 'link';
+    let styleName = 'link',
+        to = `/${ task.projectId }/`,
+        title;
+
     if ( active ) styleName += ' active';
+
     if ( task.id === 'new' ) {
         styleName += ' new';
         if ( task.projectId === 'new' ) {
             styleName += ' hidden'
         }
+        to += 'new';
+        title = 'New'
+    } else {
+        to += task.id;
+        title = task.title;
     }
 
     return <div styleName='task-item'>
-        { task.id === 'new' ?
-            <Link
-                styleName={ styleName }
-                to={ `/${ task.projectId }/new` }
-            >New</Link> :
-            <Link
-                styleName={ styleName }
-                to={ `/${ task.projectId }/${ task.id }` }
-            >{ task.title }</Link>
-        }
+        <Link styleName={ styleName } to={ to } >{ title }</Link>
     </div>
 };
 

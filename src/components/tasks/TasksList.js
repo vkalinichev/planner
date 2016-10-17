@@ -2,6 +2,7 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import cssModules from 'react-css-modules';
 import fuzzysearch from 'fuzzysearch';
+import { Link } from 'react-router';
 import { push as navigate } from 'react-router-redux';
 
 import TaskItem from './TaskItem';
@@ -54,16 +55,20 @@ class TasksList extends Component {
                         key={ task.id }
                         active={ task.id == activeTaskId }
                     />) :
-                    <div styleName='stub'>No tasks here yet</div>
+                    <div styleName='stub'>
+                        No tasks here yet.
+                        <br/>
+                        <Link to={`/${ projectId}/new`}>Create</Link>
+                    </div>
                 }
             </div>
             { children }
         </div>
     }
 
-    addTask = ( name )=> {
-        this.props.addTask( name );
-    }
+    addTask = ( task )=> {
+        this.props.addTask( task );
+    };
 }
 
 export default TasksList;
