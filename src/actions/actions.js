@@ -1,21 +1,22 @@
 import { push } from 'react-router-redux';
 import { maxId } from '../helpers';
 
+
 export const addProject = ( name )=> ( dispatch, getState )=> {
     const id = maxId( getState().projects );
     dispatch( { type: 'ADD_PROJECT', data: { id, name } } );
     dispatch( push( `/${ id }` ) )
 };
-
 export const deleteProject = ( projectId )=> ({ type: 'DELETE_PROJECT', data: projectId });
-export const showAddProject = ()=> ({ type: 'SHOW_ADD_PROJECT' });
-export const hideAddProject = ()=> ({ type: 'HIDE_ADD_PROJECT' });
 
-export const addTask = ( task )=> ({ type: 'ADD_TASK', data: task });
 
+export const addTask = ( task={} )=> ( dispatch, getState )=> {
+    task.id = maxId( getState().tasks );
+    dispatch( { type: 'ADD_TASK', data: task } );
+    dispatch( push( `/${ task.projectId }/${ task.id }` ) )
+};
 export const updateTask = ( task )=> ({ type: 'UPDATE_TASK', data: task });
 export const deleteTask = ( taskId )=> ({ type: 'DELETE_TASK', data: taskId });
-
 export const filterTasks = ( query )=> ({ type: 'FILTER_TASKS', data: query });
 
 

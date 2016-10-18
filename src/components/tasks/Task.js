@@ -7,10 +7,10 @@ import Button from '../button/Button';
 import { addTask, updateTask, deleteTask } from '../../actions/actions'
 import * as styles from './Task.styl';
 
-const mapStateToProps = ({ tasks }, { params: { taskId } })=> ({
-    isNew: taskId === 'new',
-    tasksCount: tasks.length,
-    task: tasks.filter( task => task.id === parseInt( taskId, 10 ))[0]
+const mapStateToProps = ({ tasks }, { params: { projectId, taskId } })=> ({
+        projectId,
+        isNew: taskId === 'new',
+        task: tasks.filter( task => task.id === parseInt( taskId, 10 ))[0]
 });
 
 const mapDispatchToProps = ( dispatch )=> ({
@@ -24,38 +24,64 @@ const mapDispatchToProps = ( dispatch )=> ({
 
 class Task extends Component {
 
+    constructor() {
+        super();
+        this.state = {
+            title: '',
+            text: ''
+        };
+    }
+
+    componentWillReceiveProps ( nextProps ) {
+        if ( nextProps.isNew && !this.props.isNew ) {
+            this.setState( {
+                title: '',
+                text: ''
+            } )
+        } else if (nextProps.task)
+            this.setState( {
+                title: nextProps.task.title,
+                text: nextProps.task.text
+            } )
+    }
+
+    componentWillMount() {
+        if (this.props.task)
+            this.setState( {
+                title: this.props.task.title,
+                text: this.props.task.text
+            } )
+    }
+
     componentDidUpdate() {
         const title = this.refs.title;
-
-        if ( title ) this.refs.title.focus();
+        if (title) this.refs.title.focus();
     }
 
     render() {
 
-        let { isNew, tasksCount, task } = this.props;
-
-        // if ( tasksCount === 0 ) {
-        //     return <div>no tasks</div>
-        // }
+        let { isNew, task, projectId } = this.props;
 
         if ( isNew ) task = { title: '', text: '' };
+
+        if (!task) return null;
 
         return (<div styleName='task'>
             <div styleName='title'> { isNew ? 'New' : 'Edit' } Task </div>
             <div styleName='line'>
                 <label> Title: </label>
-                <input ref='title' value={ task.title } onChange={ ()=> console.log(1)}/>
+                <input name='title' value={ this.state.title } onInput={ this.onInput } />
             </div>
             <div styleName='line'>
                 <label> Text: </label>
-                <textarea ref='text' value={ task.text } onChange={ ()=> console.log(2)}/>
+                <textarea name='text' value={ this.state.text } onInput={ this.onInput } />
             </div>
             <div styleName='buttons'>
                 { isNew ?
                     <Button onClick={ this.onAdd }> Add </Button> :
                     <Button onClick={ this.onSave }> Save </Button>
                 }
-                <Button to={`/${ task.projectId }`}> Cancel </Button>
+                <Button to={`/${ projectId }`}> Cancel </Button>
                 { isNew ?
                     null:
                     <Button onClick={ this.onDelete } className='delete'> Delete </Button>
@@ -64,28 +90,30 @@ class Task extends Component {
         </div>)
     }
 
+    onInput = ( event )=> {
+        let state = {};
+        state[ event.target.name ] = event.target.value;
+        this.setState( state );
+    };
+
     onAdd = ()=> {
         this.props.onAdd( {
-            id: +new Date,
-            title: this.refs.title.value,
-            text: this.refs.text.value
+            projectId: this.props.projectId,
+            title: this.state.title,
+            text: this.state.text
         });
-
-        browserHistory.push(`/${ this.props.task.projectId}`);
     };
 
     onSave = ()=> {
         this.props.onSave( Object.assign( {}, this.props.task, {
-            title: this.refs.title.value,
-            text: this.refs.text.value
+            title: this.state.title,
+            text: this.state.text
         }));
-
-        browserHistory.push(`/${ this.props.task.projectId}`);
     };
 
     onDelete = ()=> {
         this.props.onDelete( this.props.task.id );
-        browserHistory.push(`/${ this.props.task.projectId}`);
+        browserHistory.push(`/${ this.props.projectId}`);
     }
 }
 

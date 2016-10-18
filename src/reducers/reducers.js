@@ -21,10 +21,7 @@ function tasks ( state, action ) {
             return action.data.tasks || state;
 
         case 'ADD_TASK':
-            let newTask = Object.assign( {}, action.data, {
-                id: +new Date
-            } );
-            return state.concat([newTask]);
+            return state.concat([ action.data ]);
 
         case 'UPDATE_TASK':
             let taskUpdate = action.data;
@@ -49,8 +46,6 @@ function projects ( state, action ) {
             return action.data.projects || state;
 
         case 'ADD_PROJECT':
-            console.log(state, action.data);
-            console.log(state.concat([ action.data ]));
             return state.concat([ action.data ]);
 
         case 'DELETE_PROJECT':
