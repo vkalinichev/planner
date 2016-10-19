@@ -10,14 +10,14 @@ import Project from './Project';
 import ProjectNew from './ProjectNew';
 import { addProject, deleteProject } from '../../actions/actions'
 
-const mapStateToProps = ({ projects }) => ({
+const mapStateToProps = ({ projects })=> ({
     projects
 });
 
-const mapDispatchToProps = dispatch => ({ projects }) => ({
-    addProject: name => dispatch( addProject( name ) ),
-    deleteProject: id => dispatch( deleteProject( id ) ),
-    navigate: url => dispatch( navigate( url ) )
+const mapDispatchToProps = dispatch => ({ projects })=> ({
+    addProject( name ) { dispatch( addProject( name ) ) },
+    deleteProject( id ) { dispatch( deleteProject( id ) ) },
+    navigate( url ) { dispatch( navigate( url ) ) }
 });
 
 @connect( mapStateToProps, mapDispatchToProps )

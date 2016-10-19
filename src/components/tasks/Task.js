@@ -14,9 +14,9 @@ const mapStateToProps = ({ tasks }, { params: { projectId, taskId } })=> ({
 });
 
 const mapDispatchToProps = ( dispatch )=> ({
-    onAdd: task => dispatch( addTask( task )),
-    onSave: task => dispatch( updateTask( task )),
-    onDelete: taskId => dispatch( deleteTask( taskId ))
+    onAdd( task ) { dispatch( addTask( task )) },
+    onSave( task ) { dispatch( updateTask( task )) },
+    onDelete( taskId ) { dispatch( deleteTask( taskId )) }
 });
 
 @connect( mapStateToProps, mapDispatchToProps )

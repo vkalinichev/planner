@@ -9,23 +9,23 @@ import TaskItem from './TaskItem';
 import * as styles from './TasksList.styl';
 import { addTask, deleteTask } from '../../actions/actions'
 
-const matches = ( filter = "", task = "" ) => {
+const matches = ( filter = "", task = "" )=> {
     const needle = filter.toLowerCase(),
         title = task.title.toLowerCase(),
         text = task.text.toLowerCase();
     return fuzzysearch(needle, title) || fuzzysearch(needle, text);
 };
 
-const mapStateToProps = ( { tasks, taskFilter }, { params: { projectId, taskId }} ) => ({
+const mapStateToProps = ( { tasks, taskFilter }, { params: { projectId, taskId }} )=> ({
     projectId,
     activeTaskId: taskId,
     tasks: tasks.filter(c => c.projectId == projectId && matches( taskFilter, c ) )
 });
 
-const mapDispatchToProps = ( dispatch ) => () => ({
-    addTask: task => dispatch( addTask( task ) ),
-    deleteTask: id => dispatch( deleteTask( id ) ),
-    navigate: url => dispatch( navigate( url ) )
+const mapDispatchToProps = ( dispatch )=> ()=> ({
+    addTask( task ) { dispatch( addTask( task )) },
+    deleteTask( id ) { dispatch( deleteTask( id )) },
+    navigate( url ) { dispatch( navigate( url )) }
 });
 
 @connect( mapStateToProps, mapDispatchToProps )

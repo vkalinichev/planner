@@ -7,7 +7,7 @@ import cssModules from 'react-css-modules';
 import * as styles from './Project.styl';
 
 const mapDispatchToProps = ( dispatch )=> ({
-    goBack: ()=> dispatch( goBack() )
+    goBack() { dispatch( goBack() ) }
 });
 
 @connect( null, mapDispatchToProps )
