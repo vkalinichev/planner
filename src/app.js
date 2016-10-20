@@ -13,6 +13,7 @@ import './style.css';
 import App from './components/app/App';
 import TasksList from './components/tasks/TasksList';
 import Task from './components/tasks/Task';
+import TaskNew from './components/tasks/TaskNew';
 
 reducers.routing = routerReducer;
 
@@ -43,6 +44,7 @@ function run () {
             <Router history={ history }>
                 <Route path='/' component={ App } >
                     <Route path='/:projectId' component={ TasksList }>
+                        <Route path='/:projectId/new' component={ TaskNew }/>
                         <Route path='/:projectId/:taskId' component={ Task }/>
                     </Route>
                 </Route>
