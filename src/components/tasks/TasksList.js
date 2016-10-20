@@ -6,6 +6,7 @@ import { Link } from 'react-router';
 import { push as navigate } from 'react-router-redux';
 
 import TaskItem from './TaskItem';
+import TaskItemNew from './TaskItemNew';
 import * as styles from './TasksList.styl';
 import { addTask, deleteTask } from '../../actions/actions'
 
@@ -40,25 +41,28 @@ class TasksList extends Component {
     }
 
     render() {
+        console.log(this.props.activeTaskId);
         const { tasks, children, projectId, activeTaskId } = this.props;
 
         return <div styleName='container'>
             <div styleName='list'>
-                <TaskItem
-                    task={{ id: 'new', projectId }}
-                    active={ activeTaskId === 'new' }
+                <TaskItemNew
+                    projectId={ projectId }
+                    active={ !activeTaskId }
+                    hidden={ projectId === 'new' }
                     onAdd={ this.addTask }
                 />
                 { tasks && tasks.length ? tasks.map( task =>
                     <TaskItem
+                        projectId={ projectId }
+                        active={ task.id == activeTaskId }
                         task={ task }
                         key={ task.id }
-                        active={ task.id == activeTaskId }
                     />) :
                     <div styleName='stub'>
                         No tasks here yet.
                         <br/>
-                        <Link to={`/${ projectId}/new`}>Create</Link>
+                        <Link to={`/${ projectId }/new`}>Create</Link>
                     </div>
                 }
             </div>

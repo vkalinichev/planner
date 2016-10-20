@@ -1,25 +1,11 @@
 import { Component } from 'react';
 import cssModules from 'react-css-modules';
-import { Link, browserHistory } from 'react-router';
-import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 
 import Button from '../button/Button';
-import { addTask, updateTask, deleteTask } from '../../actions/actions'
 import * as styles from './Task.styl';
 
-const mapStateToProps = ({ tasks }, { params: { projectId, taskId } })=> ({
-        projectId,
-        isNew: taskId === 'new',
-        task: tasks.filter( task => task.id === parseInt( taskId, 10 ))[0]
-});
 
-const mapDispatchToProps = ( dispatch )=> ({
-    onAdd( task ) { dispatch( addTask( task )) },
-    onSave( task ) { dispatch( updateTask( task )) },
-    onDelete( taskId ) { dispatch( deleteTask( taskId )) }
-});
-
-@connect( mapStateToProps, mapDispatchToProps )
 @cssModules( styles, { allowMultiple: true } )
 
 class Task extends Component {
@@ -29,33 +15,22 @@ class Task extends Component {
         this.state = {
             title: '',
             text: ''
-        };
+        }
     }
 
-    componentWillReceiveProps ( nextProps ) {
-        if ( nextProps.isNew && !this.props.isNew ) {
-            this.setState( {
-                title: '',
-                text: ''
-            } )
-        } else if (nextProps.task)
-            this.setState( {
-                title: nextProps.task.title,
-                text: nextProps.task.text
-            } )
+    componentWillReceiveProps( nextProps ) {
+        this.setState({
+            title: nextProps.task.title,
+            text: nextProps.task.text
+        })
     }
 
-    componentWillMount() {
-        if (this.props.task)
-            this.setState( {
-                title: this.props.task.title,
-                text: this.props.task.text
-            } )
-    }
-
-    componentDidUpdate() {
-        const title = this.refs.title;
-        if (title) this.refs.title.focus();
+    shouldComponentUpdate( nextProps, nextState ) {
+        return !this.props.task ||
+            !nextProps.task ||
+            ( nextProps.task.id !== this.props.task.id ) ||
+            nextState.title !== this.state.title ||
+            nextState.text !== this.state.text;
     }
 
     render() {
@@ -70,11 +45,11 @@ class Task extends Component {
             <div styleName='title'> { isNew ? 'New' : 'Edit' } Task </div>
             <div styleName='line'>
                 <label> Title: </label>
-                <input name='title' value={ this.state.title } onInput={ this.onInput } />
+                <input name='title' value={ this.state.title } onChange={ this.onChange }/>
             </div>
             <div styleName='line'>
                 <label> Text: </label>
-                <textarea name='text' value={ this.state.text } onInput={ this.onInput } />
+                <textarea name='text' value={ this.state.text } onChange={ this.onChange }/>
             </div>
             <div styleName='buttons'>
                 { isNew ?
@@ -90,7 +65,7 @@ class Task extends Component {
         </div>)
     }
 
-    onInput = ( event )=> {
+    onChange = ( event )=> {
         let state = {};
         state[ event.target.name ] = event.target.value;
         this.setState( state );
