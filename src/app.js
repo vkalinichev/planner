@@ -5,9 +5,9 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { Router, Route, browserHistory } from 'react-router';
 import { syncHistoryWithStore, routerReducer, routerMiddleware } from 'react-router-redux';
 import thunkMiddleware from 'redux-thunk';
-import createLogger from 'redux-logger'
-import { fetchData} from './actions/actions'
-import * as reducers from './reducers/reducers'
+import createLogger from 'redux-logger';
+import { fetchData } from './actions/actions';
+import * as reducers from './reducers/reducers';
 import './style.css';
 
 import App from './components/app/App';
@@ -43,9 +43,9 @@ function run () {
         <Provider store={ store } >
             <Router history={ history }>
                 <Route path='/' component={ App } >
-                    <Route path='/:projectId' component={ TasksList }>
-                        <Route path='/:projectId/new' component={ TaskNew }/>
-                        <Route path='/:projectId/:taskId' component={ TaskEdit }/>
+                    <Route path=':projectId' component={ TasksList }>
+                        <Route path='new' component={ TaskNew }/>
+                        <Route path=':taskId' component={ TaskEdit }/>
                     </Route>
                 </Route>
             </Router>

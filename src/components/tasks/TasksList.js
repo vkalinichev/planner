@@ -41,7 +41,6 @@ class TasksList extends Component {
     }
 
     render() {
-        console.log(this.props.activeTaskId);
         const { tasks, children, projectId, activeTaskId } = this.props;
 
         return <div styleName='container'>
