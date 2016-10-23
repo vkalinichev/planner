@@ -42,7 +42,7 @@ express()
     .use( express.static( BUILD ) )
     .use( bodyParser.json() )
 
-    .get( '/api/data', (req, res)=> res.json( data ) )
+    .get( '/api/data', (req, res)=> setTimeout( ()=> { res.json( data ) }, 200 ))
 
     .post( '/api/data', (req, res)=> res.json( data = req.body ) )
 
