@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import cssModules from 'react-css-modules';
 import { connect } from 'react-redux';
 import { push as navigate } from 'react-router-redux';
@@ -10,17 +9,13 @@ import Project from './Project';
 import ProjectNew from './ProjectNew';
 import { addProject, deleteProject } from '../../actions/actions'
 
-const mapStateToProps = ({ projects })=> ({
+@connect( ({ projects })=> ({
     projects
-});
-
-const mapDispatchToProps = dispatch => ({ projects })=> ({
-    addProject( name ) { dispatch( addProject( name ) ) },
-    deleteProject( id ) { dispatch( deleteProject( id ) ) },
-    navigate( url ) { dispatch( navigate( url ) ) }
-});
-
-@connect( mapStateToProps, mapDispatchToProps )
+}), {
+    addProject,
+    deleteProject,
+    navigate
+})
 @cssModules( styles, { allowMultiple: true } )
 class ProjectsList extends React.Component {
 

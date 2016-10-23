@@ -23,13 +23,11 @@ const mapStateToProps = ( { tasks, taskFilter }, { params: { projectId, taskId }
     tasks: tasks.filter(c => c.projectId == projectId && matches( taskFilter, c ) )
 });
 
-const mapDispatchToProps = ( dispatch )=> ()=> ({
-    addTask( task ) { dispatch( addTask( task )) },
-    deleteTask( id ) { dispatch( deleteTask( id )) },
-    navigate( url ) { dispatch( navigate( url )) }
-});
-
-@connect( mapStateToProps, mapDispatchToProps )
+@connect( mapStateToProps, {
+    addTask,
+    deleteTask,
+    navigate
+})
 @cssModules( styles, { allowMultiple: true } )
 class TasksList extends Component {
 
