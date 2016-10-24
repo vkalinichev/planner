@@ -1,10 +1,10 @@
-import * as reducers from './index';
+import tasks from './tasks'
 
 describe( 'tasks reducer', () => {
 
     it('should return the initial state', () => {
         expect(
-            reducers.tasks(undefined, {})
+            tasks(undefined, {})
         ).toEqual([])
     });
 
@@ -23,9 +23,9 @@ describe( 'tasks reducer', () => {
             type: 'ADD_TASK',
             data: task1
         };
-        expect( reducers.tasks([], action ) ).toEqual( [ task1 ] );
+        expect( tasks([], action ) ).toEqual( [ task1 ] );
 
-        expect( reducers.tasks([ task0 ], action ) ).toEqual( [ task0, task1 ] );
+        expect( tasks([ task0 ], action ) ).toEqual( [ task0, task1 ] );
     })
 
 });
