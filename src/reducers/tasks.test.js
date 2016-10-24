@@ -1,4 +1,4 @@
-import * as reducers from './reducers';
+import * as reducers from './index';
 
 describe( 'tasks reducer', () => {
 

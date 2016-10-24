@@ -1,21 +1,19 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { Router, Route, browserHistory } from 'react-router';
-import { syncHistoryWithStore, routerReducer, routerMiddleware } from 'react-router-redux';
+import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 import { fetchData } from './actions/actions';
-import * as reducers from './reducers/reducers';
+import reducers from './reducers';
 import './style.css';
 
 import App from './components/app/App';
 import TasksList from './components/tasks/TasksList';
 import TaskEdit from './components/tasks/TaskEdit';
 import TaskNew from './components/tasks/TaskNew';
-
-reducers.routing = routerReducer;
 
 const enhancer = compose(
     applyMiddleware(
@@ -27,7 +25,7 @@ const enhancer = compose(
 );
 
 const store = createStore(
-    combineReducers( reducers ),
+    reducers,
     enhancer
 );
 
