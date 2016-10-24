@@ -8,6 +8,7 @@ import { fetchData } from './actions/actions';
 import './style.css';
 
 import App from './components/app/App';
+import DevTools from './containers/DevTools'
 import TasksList from './components/tasks/TasksList';
 import TaskEdit from './components/tasks/TaskEdit';
 import TaskNew from './components/tasks/TaskNew';
@@ -26,14 +27,17 @@ window.store = store;
 function run () {
     render(
         <Provider store={ store } >
-            <Router history={ history }>
-                <Route path='/' component={ App } >
-                    <Route path=':projectId' component={ TasksList }>
-                        <Route path='new' component={ TaskNew }/>
-                        <Route path=':taskId' component={ TaskEdit }/>
+            <div>
+                <Router history={ history }>
+                    <Route path='/' component={ App } >
+                        <Route path=':projectId' component={ TasksList }>
+                            <Route path='new' component={ TaskNew }/>
+                            <Route path=':taskId' component={ TaskEdit }/>
+                        </Route>
                     </Route>
-                </Route>
-            </Router>
+                </Router>
+                <DevTools />
+            </div>
         </Provider>,
         document.getElementById("root")
     );
