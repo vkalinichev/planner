@@ -1,13 +1,10 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose } from 'redux';
 import { Router, Route, browserHistory } from 'react-router';
-import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
-import thunkMiddleware from 'redux-thunk';
-import createLogger from 'redux-logger';
+import { syncHistoryWithStore } from 'react-router-redux';
+
 import { fetchData } from './actions/actions';
-import reducers from './reducers';
 import './style.css';
 
 import App from './components/app/App';
@@ -15,19 +12,9 @@ import TasksList from './components/tasks/TasksList';
 import TaskEdit from './components/tasks/TaskEdit';
 import TaskNew from './components/tasks/TaskNew';
 
-const enhancer = compose(
-    applyMiddleware(
-        thunkMiddleware,
-        createLogger({ collapsed: true }),
-        routerMiddleware( browserHistory )
-    ),
-    window['devToolsExtension'] ? window['devToolsExtension']() : f => f
-);
+import configureStore from './store/configureStore'
 
-const store = createStore(
-    reducers,
-    enhancer
-);
+const store = configureStore()
 
 const history = syncHistoryWithStore(
     browserHistory,
