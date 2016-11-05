@@ -27,7 +27,7 @@ window.store = store;
 function run () {
     render(
         <Provider store={ store } >
-            <div>
+            <div className='app' >
                 <Router history={ history }>
                     <Route path='/' component={ App } >
                         <Route path=':projectId' component={ TasksList }>

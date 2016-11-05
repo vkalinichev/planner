@@ -4,6 +4,8 @@
     $shadow = hsla( black, 7% )
 
     display inline-block
+    position relative
+    top -($height)
 
     padding 4px 12px
     font inherit
@@ -19,7 +21,7 @@
         0 $height*2 0 0 $shadow
     color white
     cursor pointer
-    transform translate3d( 0, -($height), 0 )
+    transform translate3d( 0, 0, 0 )
     transition .07s ease-in-out
     transition-property transform, box-shadow
 
@@ -34,7 +36,7 @@
         box-shadow:
             0 0 0 0 darken( $color, 20% ),
             0 0 0 0 $shadow
-        transform translate3d( 0, 0, 0 )
+        transform translate3d( 0, $height, 0 )
 
     &:focus
         outline none

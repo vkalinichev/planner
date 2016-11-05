@@ -6,7 +6,7 @@ const TaskItemNew = ({ projectId, active, hidden })=> (
 
     <div styleName={ `task-item ${ hidden ? 'hidden' : '' }` }>
         <Link
-            styleName={ `link ${ active ? 'active' : '' }` }
+            styleName={ `link link_new ${ active ? 'active' : '' }` }
             to={ `/${ projectId }/new` }
         >
             New
