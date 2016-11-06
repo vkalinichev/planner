@@ -1,8 +1,8 @@
 const projects = ( state, action ) => {
 
     switch ( action.type ) {
-        case 'RECEIVE_DATA':
-            return action.data.projects || state;
+        case 'RECEIVE_PROJECTS':
+            return action.data || state;
 
         case 'ADD_PROJECT':
             return state.concat([ action.data ]);

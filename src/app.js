@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { Router, Route, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 
-import { fetchData } from './actions/actions';
+import { fetchProjects, fetchTasks } from './actions/actions';
 import './style.css';
 
 import App from './components/app/App';
@@ -46,14 +46,13 @@ function run () {
 function save () {
     const state = store.getState();
 
-    fetch(`/api/data`, {
+    fetch(`/tasks`, {
         method: 'POST',
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            projects: state.projects,
             tasks: state.tasks
         })
     })
@@ -61,8 +60,9 @@ function save () {
 
 function init() {
     run();
-    store.subscribe( save );
-    store.dispatch( fetchData() )
+    store.dispatch( fetchProjects() ).then(
+        store.dispatch( fetchTasks() )
+    )
 }
 
 init();
