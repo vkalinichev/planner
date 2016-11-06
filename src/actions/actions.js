@@ -6,9 +6,9 @@ import api from '../api/api'
 export const addProject = ( name ) => ( dispatch ) =>
     api.addProject( { name } )
         .then( json =>
-            dispatch( fetchProjects()
+            dispatch( fetchProjects() )
                 .then( ()=> dispatch( push( `/${ json.id }` ) ) )
-        ) )
+        )
 
 export const deleteProject = ( id ) => ( dispatch ) =>
     api.deleteProject( id )

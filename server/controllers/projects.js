@@ -70,10 +70,9 @@ module.exports.modify = function * modify ( id, next ) {
 module.exports.remove = function * remove ( id, next ) {
     if ( 'DELETE' != this.method ) return yield next
 
-    var project = yield projects.find( {id}, {
-        'skip': id - 1,
-        'limit': 1
-    } )
+    id = parseInt( id, 10 )
+
+    var project = yield projects.find( { id }, { 'limit': 1 } )
 
     if ( project.length === 0 ) {
         this.throw( 404, 'project with id = ' + id + ' was not found' )
