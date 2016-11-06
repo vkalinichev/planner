@@ -45,12 +45,13 @@ module.exports = {
         port: PORT,
         host: HOST,
         proxy: {
-            "/api/data": {
-                "target": {
-                    "host": API_SERVER.HOST,
-                    "protocol": 'http:',
-                    "port": API_SERVER.PORT
-                },
+            "/projects": {
+                target: `http://${ API_SERVER.HOST }:${ API_SERVER.PORT }`,
+                changeOrigin: true,
+                secure: false
+            },
+            "/tasks": {
+                target: `http://${ API_SERVER.HOST }:${ API_SERVER.PORT }`,
                 changeOrigin: true,
                 secure: false
             }
