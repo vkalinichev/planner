@@ -54,6 +54,11 @@ module.exports = {
                 target: `http://${ API_SERVER.HOST }:${ API_SERVER.PORT }`,
                 changeOrigin: true,
                 secure: false
+            },
+            "/auth": {
+                target: `http://${ API_SERVER.HOST }:${ API_SERVER.PORT }`,
+                changeOrigin: true,
+                secure: false
             }
         }
     },

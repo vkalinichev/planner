@@ -41,3 +41,11 @@ export const fetchTasks = ()=>
     ( dispatch )=>
         api.getTasks()
             .then( json => dispatch( receiveTasks( json ) ) )
+
+export const authRequest = () => ( { type: 'AUTH_REQUEST' } )
+export const authReceive = ( data ) => ( { type: 'AUTH_RECEIVE', data } )
+export const authorize = () =>
+    ( dispatch )=> {
+        dispatch( authRequest() )
+        return api.auth().then( json => dispatch( authReceive( json.success ) ) )
+    }
