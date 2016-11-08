@@ -16,17 +16,7 @@ module.exports = {
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                loader: 'babel',
-                query: {
-                    presets: [ 'es2015', 'react' ],
-                    plugins: [
-                        'transform-runtime',
-                        'transform-decorators-legacy',
-                        'transform-class-properties',
-                        'syntax-async-functions',
-                        'transform-regenerator'
-                    ],
-                }
+                loader: 'babel'
             },
             {
                 test: /\.eot$/,
